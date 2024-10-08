@@ -1,11 +1,10 @@
 import React from 'react';
-// import Navbar from '../components/Navbar';
+import BlogSection from '../components/BlogSection';
 function Homepage() {
   return (
     
     <div>
-      <h1>Welcome to the Blog Homepage</h1>
-      <p>Here you can see the list of recent posts.</p>
+      <BlogSection />
     </div>
   );
 }

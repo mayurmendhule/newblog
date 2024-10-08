@@ -5,6 +5,8 @@ import Homepage from './pages/Homepage';
 import Navbar from './components/Navbar'
 import Register from './pages/Register';
 import ContactUs from './pages/ContactUs';
+import Footer from './components/Footer';
+import BlogForm from './pages/BlogForm';
 
 function App() {
   return (
@@ -13,11 +15,12 @@ function App() {
         <Navbar />
         <Routes>    
           <Route path="/" element={<Homepage />} /> 
-          <Route path="/login" element={<Login />} />  
+          <Route path="/login" element={<Login />} /> 
+          <Route path="/blogform" element={<BlogForm />} /> 
           <Route path="/register" element={<Register />} />  
           <Route path="/contactus" element={<ContactUs />} />  
-
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

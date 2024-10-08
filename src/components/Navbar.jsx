@@ -14,7 +14,7 @@ function Navbar() {
       <div className="flex flex-wrap items-center gap-5 w-full">
         {/* Logo */}
         <Link to="/">
-          <img src="https://readymadeui.com/readymadeui.svg" alt="logo" className="w-36" />
+          {/* <img src={} alt="logo" className="w-36" /> */}
         </Link>
 
         {/* Menu Section */}
@@ -40,7 +40,10 @@ function Navbar() {
               </Link>
             </li>
             <li className="max-lg:border-b max-lg:py-3 px-3">
-              <Link to="/" className="lg:hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]">Home</Link>
+              <Link to="/" className="lg:hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]">Home</Link>
+            </li>
+            <li className="max-lg:border-b max-lg:py-3 px-3">
+              <Link to="/blogform" className="lg:hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]">Write a Blog</Link>
             </li>
             <li className="max-lg:border-b max-lg:py-3 px-3">
               <Link to="/admin" className="lg:hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]">Admin Dashboard</Link>
