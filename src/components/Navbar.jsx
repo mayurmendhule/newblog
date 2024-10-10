@@ -10,7 +10,7 @@ function Navbar() {
   };
 
   return (
-    <header className="flex items-center justify-between px-4 sm:px-10 bg-white py-4">
+    <header className="flex border-b py-4 items-center justify-between px-4 sm:px-8 bg-white py-4">
       <div className="flex items-center w-full gap-5" id="navmain">
         {/* Logo */}
         <Link to="/">
