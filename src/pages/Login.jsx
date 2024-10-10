@@ -96,14 +96,14 @@ const Login = () => {
           <div className="mt-8">
             <button
               type="button"
-              className="w-full shadow-xl py-3 px-6 text-sm tracking-wide font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+              className="w-full shadow-xl py-3 px-6 text-sm tracking-wide font-semibold rounded-md text-white bg-blue-600 hover:bg-green-600 focus:outline-none"
             >
               Log in
             </button>
           </div>
           <p className="text-gray-800 text-sm !mt-8 text-center">
   Don't have an account?
-  <Link to="/register" className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold">
+  <Link to="/register" className="text-blue-600 hover:underline hover:bg-green-600 ml-1 whitespace-nowrap font-semibold">
     Register here
   </Link>
 </p>

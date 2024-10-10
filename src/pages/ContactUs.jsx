@@ -59,7 +59,7 @@ const ContactUs = () => {
           <div className="mt-8">
             <button
               type="submit"
-              className="w-full shadow-xl py-3 px-6 text-sm tracking-wide font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+              className="w-full shadow-xl py-3 px-6 text-sm tracking-wide font-semibold rounded-md text-white bg-blue-600 hover:bg-green-600 focus:outline-none"
             >
               Send Message
             </button>
