@@ -1,31 +1,20 @@
-// Navbar.jsx
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation  } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({ isLoggedIn, onLogout }) {
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
   const navigate = useNavigate();
-  const location = useLocation(); // Get current location
+  const location = useLocation(); // Get current location to manage button display
+
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen);
   };
 
-  // Check localStorage for token on component mount to persist login
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true); // Set logged-in status if token exists
-    } else {
-      setIsLoggedIn(false); // In case of logout or expired token
-    }
-  }, []);
-
-  // Handle logout by clearing token and setting logged-in status to false
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false); // Update state to reflect logout
+    localStorage.removeItem('token'); // Clear token on logout
+    onLogout(); // Trigger the parent App's onLogout function to update state
     navigate('/login'); // Redirect to login page after logout
+    alert("logout successfully");
   };
 
   const isLoginPage = location.pathname === '/login';
@@ -36,7 +25,7 @@ function Navbar() {
       <div className="flex items-center w-full gap-5" id="navmain">
         {/* Logo */}
         <Link to="/">
-          {/* <img src={} alt="logo" className="w-36" /> */}
+          {/* <img src={} alt="logo" className="w-36" /> Add your logo here */}
         </Link>
 
         {/* Menu Section */}
@@ -50,7 +39,7 @@ function Navbar() {
             className="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3"
             onClick={toggleMenu}
           >
-            {/* SVG for close button */}
+            {/* SVG or icon for close button */}
           </button>
 
           <ul className="lg:flex max-lg:space-y-6 lg:gap-5 max-lg:w-full max-lg:overflow-auto">
@@ -80,7 +69,7 @@ function Navbar() {
         {/* Left Side - Toggle Button */}
         <div className="lg:hidden">
           <button id="toggleOpen" onClick={toggleMenu}>
-            {/* Hamburger SVG */}
+            {/* Hamburger SVG or icon for open menu */}
           </button>
         </div>
 
@@ -123,18 +112,17 @@ function Navbar() {
             </>
           ) : (
             <>
-            {/* Hide Login and Register buttons on respective pages */}
-            {!isLoginPage && (
-              <Link to="/login" className="px-5 py-2 text-sm rounded-full text-white bg-blue-600 hover:bg-green-600">
-                Login
-              </Link>
-            )}
-            {!isRegisterPage && (
-              <Link to="/register" className="px-5 py-2 text-sm rounded-full text-white bg-blue-600 hover:bg-green-600">
-                Register
-              </Link>
-            )}
-          </>
+              {!isLoginPage && (
+                <Link to="/login" className="px-5 py-2 text-sm rounded-full text-white bg-blue-600 hover:bg-green-600">
+                  Login
+                </Link>
+              )}
+              {!isRegisterPage && (
+                <Link to="/register" className="px-5 py-2 text-sm rounded-full text-white bg-blue-600 hover:bg-green-600">
+                  Register
+                </Link>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -143,6 +131,154 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
+// Navbar.jsx
+// import React, { useState, useEffect } from 'react';
+// import { Link, useNavigate, useLocation  } from 'react-router-dom';
+
+// function Navbar() {
+//   const [isMenuOpen, setMenuOpen] = useState(false);
+//   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
+//   const navigate = useNavigate();
+//   const location = useLocation(); // Get current location
+
+//   const toggleMenu = () => {
+//     setMenuOpen(!isMenuOpen);
+//   };
+
+  
+//   useEffect(() => {
+//     const token = localStorage.getItem('token'); // Check localStorage for token on component mount to persist login
+//     if (token) {
+//       setIsLoggedIn(true); // Set logged-in status if token exists
+//     } else {
+//       setIsLoggedIn(false); // In case of logout or expired token
+//     }
+//   }, []);
+
+  
+//   const handleLogout = () => {
+//     localStorage.removeItem('token'); // Handle logout by clearing token and setting logged-in status to false
+//     setIsLoggedIn(false); // Update state to reflect logout
+//     navigate('/login'); // Redirect to login page after logout
+//   };
+
+//   const isLoginPage = location.pathname === '/login';
+//   const isRegisterPage = location.pathname === '/register';
+
+//   return (
+//     <header className="flex border-b py-4 items-center justify-between px-4 sm:px-8 bg-white">
+//       <div className="flex items-center w-full gap-5" id="navmain">
+//         {/* Logo */}
+//         <Link to="/">
+//           {/* <img src={} alt="logo" className="w-36" /> */}
+//         </Link>
+
+//         {/* Menu Section */}
+//         <div
+//           id="collapseMenu"
+//           className={`lg:flex items-center lg:gap-5 ${isMenuOpen ? 'block' : 'hidden'} max-lg:fixed max-lg:w-2/4 max-lg:bg-white max-lg:top-0 max-lg:left-0 max-lg:h-full max-lg:p-6 max-lg:z-50 max-lg:shadow-lg`}
+//         >
+//           {/* Mobile Close Button */}
+//           <button
+//             id="toggleClose"
+//             className="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3"
+//             onClick={toggleMenu}
+//           >
+//             {/* SVG for close button */}
+//           </button>
+
+//           <ul className="lg:flex max-lg:space-y-6 lg:gap-5 max-lg:w-full max-lg:overflow-auto">
+//             <li className="max-lg:border-b max-lg:py-3 px-3">
+//               <Link to="/" className="lg:hover:text-blue-600 text-gray-500 block font-semibold text-sm">
+//                 Home
+//               </Link>
+//             </li>
+//             <li className="max-lg:border-b max-lg:py-3 px-3">
+//               <Link to="/blogform" className="lg:hover:text-blue-600 text-gray-500 block font-semibold text-sm">
+//                 Write a Blog
+//               </Link>
+//             </li>
+//             <li className="max-lg:border-b max-lg:py-3 px-3">
+//               <Link to="/admin" className="lg:hover:text-blue-600 text-gray-500 block font-semibold text-sm">
+//                 Admin Dashboard
+//               </Link>
+//             </li>
+//             <li className="max-lg:border-b max-lg:py-3 px-3">
+//               <Link to="/contactus" className="lg:hover:text-blue-600 text-gray-500 block font-semibold text-sm">
+//                 Contact Us
+//               </Link>
+//             </li>
+//           </ul>
+//         </div>
+
+//         {/* Left Side - Toggle Button */}
+//         <div className="lg:hidden">
+//           <button id="toggleOpen" onClick={toggleMenu}>
+//             {/* Hamburger SVG */}
+//           </button>
+//         </div>
+
+//         {/* Right Side - Login/Register or Profile/Logout */}
+//         <div className="flex items-center gap-4 ml-auto">
+//           {/* Search Bar */}
+//           <div className="flex xl:w-80 max-xl:w-full bg-gray-100 px-6 py-3 rounded focus-within:outline focus-within:outline-blue-600">
+//             <input
+//               type="text"
+//               placeholder="Search something..."
+//               className="w-full text-sm bg-transparent rounded outline-none pr-2"
+//             />
+//             <svg
+//               xmlns="http://www.w3.org/2000/svg"
+//               viewBox="0 0 192.904 192.904"
+//               width="16px"
+//               className="cursor-pointer fill-gray-400"
+//             >
+//               <path d="..." />
+//             </svg>
+//           </div>
+
+//           {/* Conditionally render user profile and buttons */}
+//           {isLoggedIn ? (
+//             <>
+//               <div className="relative inline-block">
+//                 <img
+//                   src="" // Add user profile image URL here
+//                   className="w-14 h-14 rounded-full border-2 border-blue-600 p-0.5"
+//                   alt="Profile"
+//                 />
+//                 <span className="h-3 w-3 rounded-full border border-white bg-green-500 block absolute top-1 right-0"></span>
+//               </div>
+//               <button
+//                 onClick={handleLogout}
+//                 className="px-5 py-2 text-sm rounded-full text-white bg-blue-600 hover:bg-green-600"
+//               >
+//                 Logout
+//               </button>
+//             </>
+//           ) : (
+//             <>
+//             {/* Hide Login and Register buttons on respective pages */}
+//             {!isLoginPage && (
+//               <Link to="/login" className="px-5 py-2 text-sm rounded-full text-white bg-blue-600 hover:bg-green-600">
+//                 Login
+//               </Link>
+//             )}
+//             {!isRegisterPage && (
+//               <Link to="/register" className="px-5 py-2 text-sm rounded-full text-white bg-blue-600 hover:bg-green-600">
+//                 Register
+//               </Link>
+//             )}
+//           </>
+//           )}
+//         </div>
+//       </div>
+//     </header>
+//   );
+// }
+
+// export default Navbar;
 
 
 

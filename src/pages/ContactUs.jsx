@@ -17,7 +17,7 @@ const ContactUs = () => {
           </div>
 
           <div className="mb-4">
-            <label className="text-gray-800 text-[15px] mb-2 block">Name</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Name</label>
             <input
               type="text"
               placeholder="Enter your name"
@@ -27,7 +27,7 @@ const ContactUs = () => {
           </div>
 
           <div className="mb-4">
-            <label className="text-gray-800 text-[15px] mb-2 block">Email</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
@@ -37,7 +37,7 @@ const ContactUs = () => {
           </div>
 
           <div className="mb-4">
-            <label className="text-gray-800 text-[15px] mb-2 block">Subject</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Subject</label>
             <input
               type="text"
               placeholder="Enter the subject"
@@ -47,7 +47,7 @@ const ContactUs = () => {
           </div>
 
           <div className="mb-4">
-            <label className="text-gray-800 text-[15px] mb-2 block">Message</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Message</label>
             <textarea
               placeholder="Write your message"
               rows="4"

@@ -1,9 +1,9 @@
-//Login.jsx
+// Login.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LogImage from '../assets/login_image.jpg';
 
-const Login = ({onLogin}) => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -13,7 +13,7 @@ const Login = ({onLogin}) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-  
+
     try {
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
@@ -22,25 +22,25 @@ const Login = ({onLogin}) => {
         },
         body: JSON.stringify({ email, password }),
       });
-  
+
       if (!response.ok) {
-        const errorMessage = (await response.json()).message || 'Login failed';
-        throw new Error(errorMessage);
+        const errorMessage = await response.json();
+        throw new Error(errorMessage.message);
       }
-  
+      else{
+        alert("login sucessful")
+      }
+
       const data = await response.json();
-      localStorage.setItem('token', data.token); // Save the token to localStorage
-      localStorage.setItem('user', JSON.stringify(data.user)); // Save user info to localStorage
-  
+      localStorage.setItem('token', data.token); // Store token in localStorage
       setLoading(false);
-      onLogin(); // Notify parent that the user has logged in
-      navigate("/"); // Redirect to home page after successful login
+      onLogin(); // Notify parent (App.js) about successful login
+      navigate('/');
     } catch (error) {
       setError(error.message);
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="font-[sans-serif] max-w-7xl mx-auto h-screen">
@@ -54,7 +54,7 @@ const Login = ({onLogin}) => {
           </div>
 
           <div>
-            <label className="text-gray-800 text-[15px] mb-2 block">Email</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Email</label>
             <input
               name="email"
               type="email"
@@ -67,7 +67,7 @@ const Login = ({onLogin}) => {
           </div>
 
           <div className="mt-4">
-            <label className="text-gray-800 text-[15px] mb-2 block">Password</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Password</label>
             <input
               name="password"
               type="password"
@@ -80,6 +80,10 @@ const Login = ({onLogin}) => {
           </div>
 
           {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
+
+          <div class="mt-4 text-right">
+              <Link to="/forgotpassword" class="text-blue-600 text-sm font-semibold hover:underline">Forgot your password?</Link>
+          </div>
 
           <div className="mt-8">
             <button

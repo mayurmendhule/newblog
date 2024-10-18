@@ -63,7 +63,7 @@ const Register = () => {
 
           {/* Username Field */}
           <div>
-            <label className="text-gray-800 text-[15px] mb-2 block">Username</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Username</label>
             <div className="relative flex items-center">
               <input
                 name="username"
@@ -79,7 +79,7 @@ const Register = () => {
 
           {/* Email Field */}
           <div className="mt-4">
-            <label className="text-gray-800 text-[15px] mb-2 block">Email</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Email</label>
             <div className="relative flex items-center">
               <input
                 name="email"
@@ -95,7 +95,7 @@ const Register = () => {
 
           {/* Password Field */}
           <div className="mt-4">
-            <label className="text-gray-800 text-[15px] mb-2 block">Password</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Password</label>
             <div className="relative flex items-center">
               <input
                 name="password"
@@ -111,7 +111,7 @@ const Register = () => {
 
           {/* Confirm Password Field */}
           <div className="mt-4">
-            <label className="text-gray-800 text-[15px] mb-2 block">Confirm Password</label>
+            <label className="text-gray-800 text-[15px] mb-2 block font-bold">Confirm Password</label>
             <div className="relative flex items-center">
               <input
                 name="confirm-password"
