@@ -37,7 +37,7 @@ const ResetPassword = () => {
         throw new Error(data.message || 'Something went wrong.');
       }
 
-      setMessage('Password reset successfully. You can now log in.');
+      alert('Password reset successfully. You can now log in.');
       setLoading(false);
       navigate('/login');
     } catch (error) {
