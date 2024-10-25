@@ -21,11 +21,7 @@ const Footer = () => {
             <a href="#" className="mx-2 text-sm text-gray-500 transition-colors duration-300 hover:text-gray-500 dark:hover:text-gray-300" aria-label="Cookies">
               Cookies
             </a>
-          {/* </div> 
-            # Email Configuration
-SENDGRID_API_KEY= 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
-EMAIL_USER=mmendhule2303@gmail.com  # Your verified sender email
-            */}
+  
         </div>
       </div>
     </footer>

@@ -1,15 +1,15 @@
 //ForgotPassword.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import ForgotPass from "../assets/forgotpassword.jpg"
-
+import {showSuccessAlert, showErrorAlert} from "../service/alertService"
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  // const [message, setMessage] = useState('');
+  // const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
@@ -29,11 +29,13 @@ const ForgotPassword = () => {
       if (!response.ok) {
         throw new Error(data.message || 'Something went wrong.');
       }
-
-      setMessage('Password reset link sent to your email');
+      // alert('Password reset link sent to your email');
+      showSuccessAlert('Password reset link sent to your email');
+      setEmail("");
       setLoading(false);
     } catch (error) {
-      setError(error.message);
+      // alert(error.message);
+      showErrorAlert(error.message);
       setLoading(false);
     }
   };
@@ -61,9 +63,9 @@ const ForgotPassword = () => {
               placeholder="Enter your email"
             />
           </div>
-
+{/* 
           {message && <p className="text-green-500 mt-4">{message}</p>}
-          {error && <p className="text-red-500 mt-4">{error}</p>}
+          {error && <p className="text-red-500 mt-4">{error}</p>} */}
 
           <div className="mt-8">
             <button

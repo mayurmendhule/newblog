@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ResetPage from '../assets/resetpassword.jpg'
-
+import {showSuccessAlert, showErrorAlert} from '../service/alertService'
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
+//   const [error, setError] = useState('');
+//   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const { token } = useParams(); // Token from the reset link
   const navigate = useNavigate();
@@ -16,7 +16,8 @@ const ResetPassword = () => {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+    //   setError('Passwords do not match');
+    showErrorAlert('Passwords do not match');
       return;
     }
 
@@ -37,11 +38,13 @@ const ResetPassword = () => {
         throw new Error(data.message || 'Something went wrong.');
       }
 
-      alert('Password reset successfully. You can now log in.');
+    //   alert('Password reset successfully. You can now log in.');
+    showSuccessAlert('Password reset successfully. You can now log in.');
       setLoading(false);
       navigate('/login');
     } catch (error) {
-      setError(error.message);
+    //   setError(error.message);
+    showErrorAlert(error.message);
       setLoading(false);
     }
   };
@@ -83,8 +86,8 @@ const ResetPassword = () => {
             />
           </div>
 
-          {message && <p className="text-green-500 mt-4">{message}</p>}
-          {error && <p className="text-red-500 mt-4">{error}</p>}
+          {/* {message && <p className="text-green-500 mt-4">{message}</p>}
+          {error && <p className="text-red-500 mt-4">{error}</p>} */}
 
           <div className="mt-8">
             <button

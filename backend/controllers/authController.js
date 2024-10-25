@@ -1,9 +1,13 @@
+//authController.js
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 require('dotenv').config();
 const sgMail = require('@sendgrid/mail');  // Import SendGrid package
+const multer = require('multer'); // For handling file uploads
+const path = require('path');
+
 
 // Set the SendGrid API key
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -54,7 +58,14 @@ exports.login = (req, res) => {
         }
 
         const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ 
+          token,
+          user: {
+              id: user.id,
+              email: user.email,
+              role: user.role // Include role in the response
+          }
+        });
     });
 };
 
@@ -123,4 +134,55 @@ exports.resetPassword = async (req, res) => {
             res.json({ message: 'Password reset successfully.' });
         });
     });
+};
+
+
+
+// Configure Multer for image uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, 'uploads/'); // Uploads folder for storing images
+  },
+  filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname); // Unique file name
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  fileFilter: function (req, file, cb) {
+      const filetypes = /jpeg|jpg|png/;
+      const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+      const mimetype = filetypes.test(file.mimetype);
+
+      if (mimetype && extname) {
+          return cb(null, true);
+      } else {
+          cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+      }
+  }
+}).single('image'); // Single file upload
+
+// Controller to create a blog
+exports.createBlog = (req, res) => {
+  upload(req, res, (err) => {
+      if (err) {
+          return res.status(400).json({ error: err.message });
+      }
+
+      const { headline, description, author, publishDate } = req.body;
+      const image = req.file ? req.file.filename : null;
+
+      if (!headline || !description || !author || !publishDate) {
+          return res.status(400).json({ error: 'All fields are required!' });
+      }
+
+      const sql = 'INSERT INTO blogs (headline, description, author, publishDate, image) VALUES (?, ?, ?, ?, ?)';
+      db.query(sql, [headline, description, author, publishDate, image], (err, result) => {
+          if (err) {
+              return res.status(500).json({ error: err.message });
+          }
+          res.status(201).json({ message: 'Blog created successfully!' });
+      });
+  });
 };

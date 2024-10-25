@@ -2,11 +2,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LogImage from '../assets/login_image.jpg';
+import {showErrorAlert, showSuccessAlert} from '../service/alertService'
+
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -28,16 +30,18 @@ const Login = ({ onLogin }) => {
         throw new Error(errorMessage.message);
       }
       else{
-        alert("login sucessful")
+        showSuccessAlert("login sucessful")
       }
 
       const data = await response.json();
       localStorage.setItem('token', data.token); // Store token in localStorage
+      localStorage.setItem('userRole', data.user.role); // Save the user's role (e.g., admin or user)
       setLoading(false);
       onLogin(); // Notify parent (App.js) about successful login
       navigate('/');
     } catch (error) {
-      setError(error.message);
+     showErrorAlert(error.message);
+     console.log(error.message)
       setLoading(false);
     }
   };
@@ -79,7 +83,7 @@ const Login = ({ onLogin }) => {
             />
           </div>
 
-          {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
+          {/* {error && <p className="text-red-500">{error}</p>} Display error message */}
 
           <div class="mt-4 text-right">
               <Link to="/forgotpassword" class="text-blue-600 text-sm font-semibold hover:underline">Forgot your password?</Link>

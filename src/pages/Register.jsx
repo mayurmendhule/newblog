@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import ReIamge from '../assets/register_image.jpg';
+import {showErrorAlert, showSuccessAlert} from '../service/alertService';
+
 
 const Register = () => {
   // State to manage form inputs
@@ -8,7 +10,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -16,12 +18,12 @@ const Register = () => {
   const handleRegister = () => {
     // Simple check for password confirmation
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      showErrorAlert('Passwords do not match');
       return;
     }
 
     // Reset any previous errors
-    setError('');
+    // setError('');
     setLoading(true); // Start loading
 
 
@@ -41,11 +43,11 @@ const Register = () => {
       })
       .then(data => {
         console.log('User registered successfully:', data);
-        alert('User registered successfully');      
+        showSuccessAlert('User registered successfully');      
         navigate('/login');  // Redirect to login page after successful registration
       })
       .catch(error => {
-        setError(error.toString());
+        showErrorAlert(error.toString());
         setLoading(false); // Stop loading after error
       });
   };
@@ -126,11 +128,11 @@ const Register = () => {
           </div>
 
           {/* Error Message */}
-          {error && (
+          {/* {error && (
             <div className="text-red-600 mt-4 text-sm">
               {error}
             </div>
-          )}
+          )} */}
 
           {/* Submit Button */}
           <div className="mt-8">
