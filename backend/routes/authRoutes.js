@@ -7,7 +7,7 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
-router.post('/create', createBlog); // Correct function name for blog creation
+router.post('/blogs/create', createBlog); // Matches '/api/blogs/create' in frontend
 
 module.exports = router;
 

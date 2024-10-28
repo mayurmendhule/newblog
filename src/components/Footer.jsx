@@ -5,7 +5,9 @@ const Footer = () => {
     <footer className="px-6 py-8 mx-auto bg-white dark:bg-gray-900">
       {/* <div className="container px-6 py-8 mx-auto"> */}
         <hr className="my-10 border-gray-200 dark:border-gray-700" />
-
+       { /*      # Email Configuration
+SENDGRID_API_KEY= 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
+EMAIL_USER=mmendhule2303@gmail.com  # Your verified sender email */}
         <div className="flex flex-col items-center sm:flex-row sm:justify-between">
           <p className="text-sm text-gray-500">© Copyright 2024. All Rights Reserved.</p>
 

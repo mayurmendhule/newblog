@@ -165,24 +165,30 @@ const upload = multer({
 
 // Controller to create a blog
 exports.createBlog = (req, res) => {
-  upload(req, res, (err) => {
-      if (err) {
-          return res.status(400).json({ error: err.message });
-      }
 
-      const { headline, description, author, publishDate } = req.body;
-      const image = req.file ? req.file.filename : null;
+    upload(req, res, (err) => {
+        if (err) {
+            console.error('Upload error:', err); // Log any upload errors
+            return res.status(400).json({ error: err.message });
+        }
+  
+        const { headline, description, author, publishDate, category} = req.body;
+        const image = req.file ? req.file.filename : null;
+  
+        if (!headline || !description || !author || !publishDate || !category) {
+            return res.status(400).json({ error: 'All fields are required!' });
+        }
+  
+        const sql = 'INSERT INTO blogs (headline, description, author, publishDate, image, category) VALUES (?, ?, ?, ?, ?, ?)';
+        db.query(sql, [headline, description, author, publishDate, image, category], (err, result) => {
+            if (err) {
+                console.error('Database error:', err); // Log database errors
+                return res.status(500).json({ error: err.message });
+            }
+            res.status(201).json({ message: 'Blog created successfully!' });
+            console.log("Blog created successfully!")
+        });
+    });
+  };
 
-      if (!headline || !description || !author || !publishDate) {
-          return res.status(400).json({ error: 'All fields are required!' });
-      }
 
-      const sql = 'INSERT INTO blogs (headline, description, author, publishDate, image) VALUES (?, ?, ?, ?, ?)';
-      db.query(sql, [headline, description, author, publishDate, image], (err, result) => {
-          if (err) {
-              return res.status(500).json({ error: err.message });
-          }
-          res.status(201).json({ message: 'Blog created successfully!' });
-      });
-  });
-};

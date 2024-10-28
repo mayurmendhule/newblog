@@ -7,8 +7,9 @@ const authRoutes = require('./routes/authRoutes');
 dotenv.config();
 
 const app = express();
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 app.use(express.json()); // For parsing application/json
+app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 
 // Use authentication routes
 app.use('/api/auth', authRoutes);
